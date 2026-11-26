@@ -44,6 +44,11 @@ function main(): void {
   if (handle !== HANDLE) {
     throw new Error(`Expected handle @${HANDLE}, got @${handle}`);
   }
+  // X status ids are 19-digit snowflakes; a shorter id means the link was
+  // truncated or copied wrong, and the bounty check would not find the post.
+  if (statusId.length !== 19) {
+    throw new Error(`Expected a 19-digit status id, got ${statusId}`);
+  }
   console.log(`Bounty: ${BOUNTY_SLUG}`);
   console.log(`Bounty page: ${BOUNTY_URL}`);
   console.log(`Post: ${post.url}`);
